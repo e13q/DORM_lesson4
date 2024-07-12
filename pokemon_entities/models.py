@@ -9,3 +9,5 @@ class Pokemon(models.Model):
     #img_url = models.TextField()
     #entities = models.ForeignKey()
     #next_evolution = models.ForeignKey()
+    def __str__(self):
+        return self.title
