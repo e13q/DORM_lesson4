@@ -12,8 +12,9 @@ class Pokemon(models.Model):
         'self',
         on_delete=models.CASCADE,
         null=True,
-        blank=True
-    ) 
+        blank=True,
+        related_name='next_evolutions'
+    )
 
     def __str__(self):
         return self.title_ru
@@ -24,7 +25,8 @@ class PokemonEntity(models.Model):
         Pokemon,
         on_delete=models.CASCADE,
         null=True,
-        blank=True
+        blank=True,
+        related_name='pokemon_entities'
     )
     lat = models.FloatField()
     lon = models.FloatField()

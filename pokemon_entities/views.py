@@ -59,8 +59,8 @@ def show_all_pokemons(request):
 def show_pokemon(request, pokemon_id):
     local_time = localtime()
     requested_pokemon = Pokemon.objects.get(pokemon_id=pokemon_id)
-    pokemons_on_map = PokemonEntity.objects.filter(
-        pokemon=requested_pokemon,
+
+    pokemons_on_map = requested_pokemon.pokemon_entities.filter(
         disappeared_at__gt=local_time,
         appeared_at__lt=local_time
     )
@@ -88,6 +88,15 @@ def show_pokemon(request, pokemon_id):
             'title_ru': requested_pokemon.previous_evolution.title_ru
         }
         pokemon_to_view['previous_evolution'] = previous_evolution
+    next_evolutions = requested_pokemon.next_evolutions.all()
+    if next_evolutions:
+        next_evolution = next_evolutions[0]
+        next_evolution = {
+            'pokemon_id': next_evolution.pokemon_id,
+            'img_url': f'http://{request.get_host()}{next_evolution.image.url}',
+            'title_ru': next_evolution.title_ru
+        }
+        pokemon_to_view['next_evolution'] = next_evolution
     return render(request, 'pokemon.html', context={
         'map': folium_map._repr_html_(), 'pokemon': pokemon_to_view
     })
