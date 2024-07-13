@@ -78,6 +78,7 @@ def show_pokemon(request, pokemon_id):
     pokemon_to_view = {
         'pokemon_id': requested_pokemon.pokemon_id,
         'img_url': f'http://{request.get_host()}{requested_pokemon.image.url}',
+        'description': requested_pokemon.description,
         'title_ru': requested_pokemon.title,
     }
     return render(request, 'pokemon.html', context={
