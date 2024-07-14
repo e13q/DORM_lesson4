@@ -2,6 +2,14 @@ from django.db import models  # noqa F401
 
 
 class Pokemon(models.Model):
+    previous_evolution = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='next_evolutions',
+        verbose_name='Предыдущая эволюция покемона'
+    )
     title_ru = models.CharField(
         max_length=200,
         unique=True,
@@ -32,14 +40,6 @@ class Pokemon(models.Model):
         blank=True,
         verbose_name='Картинка покемона'
     )
-    previous_evolution = models.ForeignKey(
-        'self',
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name='next_evolutions',
-        verbose_name='Предыдущая эволюция покемона'
-    )
 
     def __str__(self):
         return self.title_ru
@@ -49,7 +49,7 @@ class PokemonEntity(models.Model):
     pokemon = models.ForeignKey(
         Pokemon,
         on_delete=models.CASCADE,
-        related_name='pokemon_entities',
+        related_name='entities',
         verbose_name='Тип покемона'
     )
     lat = models.FloatField(verbose_name='Ширина')

@@ -64,7 +64,7 @@ def show_pokemon(request, pokemon_id):
     local_time = localtime()
     requested_pokemon = Pokemon.objects.get(id=pokemon_id)
 
-    pokemons_on_map = requested_pokemon.pokemon_entities.filter(
+    pokemons_on_map = requested_pokemon.entities.filter(
         disappeared_at__gt=local_time,
         appeared_at__lt=local_time
     )
