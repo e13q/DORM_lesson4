@@ -12,6 +12,7 @@ DEFAULT_IMAGE_URL = (
     '&fill=transparent'
 )
 
+
 def get_full_url(request, url):
     return f'http://{request.get_host()}{url}'
 
@@ -41,7 +42,7 @@ def show_all_pokemons(request):
             folium_map,
             pokemon.lat,
             pokemon.lon,
-            get_full_url(request,pokemon.pokemon.image.url)
+            get_full_url(request, pokemon.pokemon.image.url)
         )
 
     pokemons_on_page = []
